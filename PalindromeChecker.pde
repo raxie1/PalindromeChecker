@@ -1,45 +1,41 @@
-public void setup() {
+public void setup()
+{
   String lines[] = loadStrings("palindromes.txt");
   println("there are " + lines.length + " lines");
-  for (int i = 0; i < lines.length; i++) {
-    if (palindrome(lines[i]) == true) println(lines[i] + " IS a palidrome.");
-    else println(lines[i] + " is NOT a palidrome.");
+  for (int i=0; i < lines.length; i++) 
+  {
+    if(palindrome(lines[i])==true)
+    {
+      println(lines[i] + " IS a palindrome.");
+    }
+    else
+    {
+      println(lines[i] + " is NOT a palindrome.");
+    }
   }
 }
-public boolean palindrome(String word) {
-  // empty strings are palindromes
-  if (word.equals("")) return true;
-  // remove spaces, punctuation, and capitalization
-  word = charsOnly(word);
-  // split word at middle
-  int mid = word.length()/2;
-  String sFront = word.substring(0, mid+1);
-  String sBack = word.substring(mid);
-  if (word.length()%2 == 0) { // even number of chars
-    sFront = word.substring(0, mid);
-    sBack = word.substring(mid);
-  }
-  else { // odd number of chars
-    sFront = word.substring(0, mid+1);
-    sBack = word.substring(mid);
-  }
-  // reverse one of the strings
-  sBack = reverse(sBack);
-  // compare the two strings, return true if both strings are equal
-  if (sFront.equals(sBack)) return true;
+public boolean palindrome(String word)
+{
+  if(reverse(noCapitals(onlyLetters(word))).equals(noCapitals(onlyLetters(word))))
+  return true;
   return false;
 }
-public String reverse(String word) {
-  String s = new String();
-  for (int i = word.length()-1; i >= 0; i--) {
-    s += word.substring(i, i+1);
-  }
-  return s;
+public String reverse(String str)
+{
+    String reverse = "";
+  for(int i = str.length()-1; i >=0; i--)
+  reverse += str.substring(i, i+1);
+  return reverse;
 }
-public String charsOnly(String word) {
-  String s = new String();
-  for (int i = 0; i < word.length(); i++) {
-    if (Character.isLetter(word.charAt(i))) s += word.charAt(i);
-  }
-  return s.toLowerCase();
+public String onlyLetters(String word2){
+  String ans = "";
+   for(int i =0;i<word2.length();i++)
+  if(Character.isLetter(word2.charAt(i)))
+  ans += word2.charAt(i);
+  return ans;
+}
+public String noCapitals(String sWord){
+  String ans = "";
+  ans += sWord.substring(0).toLowerCase();
+  return ans;
 }
